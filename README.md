@@ -8,12 +8,13 @@ Metrics include: accuracy, root-mean-squared-error, cross-entropy, precision, re
 
 Perf can read from the standard input, or from files containing target values and predicted values. When reading from the standard input, the input to perf is a series of lines, each of which contains a target value and predicted value separated by whitespace. Perf reads the entire input corresponding to the targets and predictions for a train or test set, and then calculates the performance measures you request. Here is a short example of the input file. The first column is the target class (0 or 1). The second column is the probabilities the model predicts the case is in class 1. The input format allows any kind of whitespace to separate the two columns (e.g. spaces, tabs, commas). 
 
-1 0.80962
-0 0.48458
-1 0.65812
-0 0.16117
-0 0.47375
-0 0.26587
+~~~~
+	1 0.80962
+	0 0.48458
+	1 0.65812
+	0 0.16117
+	0 0.47375
+	0 0.26587
 1 0.71517
 1 0.63866
 0 0.36296
@@ -24,6 +25,7 @@ Perf can read from the standard input, or from files containing target values an
 1 0.41459
 1 0.83148
 0 0.23271
+~~~~
 
 If you specify no options, perf prints a variety of performance measures. Typically you will specify options so that perf only calculates the performance metric(s) you are interested in, but here is sample output of perf when run on one of the test data sets included in the perf_sample_test_data directory with no options specified: 
 
