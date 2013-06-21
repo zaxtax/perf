@@ -9,12 +9,12 @@ Metrics include: accuracy, root-mean-squared-error, cross-entropy, precision, re
 Perf can read from the standard input, or from files containing target values and predicted values. When reading from the standard input, the input to perf is a series of lines, each of which contains a target value and predicted value separated by whitespace. Perf reads the entire input corresponding to the targets and predictions for a train or test set, and then calculates the performance measures you request. Here is a short example of the input file. The first column is the target class (0 or 1). The second column is the probabilities the model predicts the case is in class 1. The input format allows any kind of whitespace to separate the two columns (e.g. spaces, tabs, commas). 
 
 ~~~~
-	1 0.80962
-	0 0.48458
-	1 0.65812
-	0 0.16117
-	0 0.47375
-	0 0.26587
+1 0.80962
+0 0.48458
+1 0.65812
+0 0.16117
+0 0.47375
+0 0.26587
 1 0.71517
 1 0.63866
 0 0.36296
@@ -29,6 +29,7 @@ Perf can read from the standard input, or from files containing target values an
 
 If you specify no options, perf prints a variety of performance measures. Typically you will specify options so that perf only calculates the performance metric(s) you are interested in, but here is sample output of perf when run on one of the test data sets included in the perf_sample_test_data directory with no options specified: 
 
+~~~~
 [caruana] perf < testperfdata
 ACC 0.83292 pred_thresh 0.500000
 PPV 0.35294 pred_thresh 0.500000
@@ -75,42 +76,51 @@ RMS 0.34966
 CXE 0.57335
 CA1 0.22115 19_0.05_bins
 CA2 0.22962 Bin_Size 100
-
+~~~~
 
 To make the output simpler, you can specify only the measure(s) you are interested in. For example, to compute just the ROC Area or just the average precision: 
 
+~~~~
 [caruana] perf -roc < testperfdata
 ROC 0.88380
 [caruana] perf -apr < testperfdata
 APR 0.51425
+~~~
 
 To compute the accuracy, cross-entropy, and root-mean-squared-error: 
 
+~~~~
 [caruana] perf -acc -cxe -rms < testperfdata
 ACC 0.83292 pred_thresh 0.500000
 RMS 0.34966
 CXE 0.57335
+~~~~
 
 Note that accuracy needed a threshold and perf used a default threshold of 0.5. If you want to use a different threshold (e.g. a threshold of 0 when using SVMs), the threshold can be specified with a "-threshold" option: 
 
+~~~~
 [caruana] perf -acc -threshold 0.0 -cxe -rms < testperfdata
 ACC 0.10474 pred_thresh 0.000000
 RMS 0.34966
 CXE 0.57335
+~~~
 
 Note that the threshold changed only the accuracy, but not the RMS or CXE. Predictions below threshold are treated as class 0 and predictions above threshold are treated as class 1. When submitting predictions for the KDD-CUP for accuracy (the only performance measure we are using in the cup that depends on a threshold) you will be asked to submit a threshold as well.
 
 Perf can read from files instead of from the standard input: 
 
+~~~~
 [caruana] perf -acc -threshold 0.0 -cxe -rms -file testperfdata
 ACC 0.10474 pred_thresh 0.000000
 RMS 0.34966
 CXE 0.57335
+~~~~
 
 Note that the file option must be the last option specified.
 
 Perf has a variety of other options not described here. Perf can plot ROC curves and precision-recall plots, automatically select thresholds that maximize accuracy or make the frequency of the cases predicted to be positive match the number of cases that are positive in the data set (both of these should be used to find thresholds on train or validation sets, and then you should specify that threshold with the "-threshold" option when testing on test sets -- finding optimal thresholds directly on test sets usually is a no-no), display confusion matrices, calculate cost when unequal costs apply to false positives and false negatives, etc. A tutorial on perf is currently being prepared, but you really won't need for the KDD-CUP. To see a list of perf's options, run perf with an illegal option such as "-help": 
 
+~~~~
 [caruana] perf -help
 
 Error: Unrecognized program option -help
@@ -176,3 +186,4 @@ must be the first column of the target file, with no block numbers in the predic
 
 -file <file> Read input from one file (1st col targets, 2nd col predictions)
 -files <targets file> <predictions file> Read input from two separate files
+~~~~
