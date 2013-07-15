@@ -336,7 +336,7 @@ int arg, taken, no_area, thresh, confusion, prcdata, plot;
 int ACC_flag, APR_flag, CAL_flag, CST_flag, CXE_flag, TOP_flag, RKL_flag;
 int LFT_flag, NPV_flag, NRM_flag, PPV_flag, PRB_flag, PRF_flag, PRE_flag;
 int REC_flag, RMS_flag, ROC_flag, R50_flag, SEN_flag, SLQ_flag, SPC_flag;
-int SAR_flag, T01_flag, T10_flag;
+int SAR_flag, T01_flag, T10_flag, APC_flag;
 int BLOCKS_flag;
 
 int acc_plot, cost_plot, roc_plot, pr_plot, lift_plot;
@@ -391,6 +391,7 @@ void print_usage(char *s) {
   printf("   -PRF             F1 score\n");
   printf("   -PRB             Precision/Recall Break Even Point\n");
   printf("   -APR             Mean Average Precision\n");
+  printf("   -AUPRC           Area under Precision/Recall Curve\n");
   printf("   -LFT             Lift (at threshold)\n");
   printf("   -TOP1            Top 1: is the top ranked case positive\n");
   printf("   -TOP10           Top 10: is there a positive in the top 10 ranked cases\n");
@@ -1313,6 +1314,7 @@ int main (argc, argv)
   SET_easy = 0;
 
   ACC_flag = 0;
+  APC_flag = 0;
   APR_flag = 0;
   CAL_flag = 0;
   CST_flag = 0;
@@ -1358,6 +1360,7 @@ int main (argc, argv)
       /* Accept flag sets the last variable to 1 if the option is set */
 
       taken += accept_flag(argv[arg], "-acc", &ACC_flag);
+      taken += accept_flag(argv[arg], "-auprc", &APC_flag);
       taken += accept_flag(argv[arg], "-rms", &RMS_flag);
 
       taken += accept_flag(argv[arg], "-sen", &SEN_flag);
@@ -1799,6 +1802,7 @@ int main (argc, argv)
 	if (PRB_flag) printf("PRB   %8.5lf\n", calc_break_even_point());
 	if (APR_flag) printf("APR   %8.5lf\n", calc_apr(0));
 	if (ROC_flag) printf("ROC   %8.5lf\n", calc_roca(0));
+	if (APC_flag) printf("AuPRC   %8.5lf\n", calc_area_under_pr(0));
 	if (R50_flag) printf("R50   %8.5lf\n", calc_rocn(50));
 	if (RKL_flag) printf("RKL    %d\n",    (int) calc_rank_last());
 	if (T01_flag) printf("TOP1  %8.5lf\n", calc_top1());
@@ -1810,6 +1814,7 @@ int main (argc, argv)
 	if (PRB_flag) printf("PRB   %8.5lf\n", 1.0 - calc_break_even_point());
 	if (APR_flag) printf("APR   %8.5lf\n", 1.0 - calc_apr(0));
 	if (ROC_flag) printf("ROC   %8.5lf\n", 1.0 - calc_roca(0));
+	if (APC_flag) printf("AuPRC   %8.5lf\n", calc_area_under_pr(0));
 	if (R50_flag) printf("R50   %8.5lf\n", 1.0 - calc_rocn(50));
 	if (RKL_flag) printf ("RKL    %8.5lf\n", ((calc_rank_last()-1) / (((double) (no_item-1)) + eps)));
 	if (T01_flag) printf ("TOP1  %8.5lf\n", 1.0 - calc_top1());
