@@ -1802,7 +1802,7 @@ int main (argc, argv)
 	if (PRB_flag) printf("PRB   %8.5lf\n", calc_break_even_point());
 	if (APR_flag) printf("APR   %8.5lf\n", calc_apr(0));
 	if (ROC_flag) printf("ROC   %8.5lf\n", calc_roca(0));
-	if (APC_flag) printf("AuPRC   %8.5lf\n", calc_area_under_pr(0));
+	if (APC_flag) printf("AuPRC %8.5lf\n", calc_area_under_pr(0));
 	if (R50_flag) printf("R50   %8.5lf\n", calc_rocn(50));
 	if (RKL_flag) printf("RKL    %d\n",    (int) calc_rank_last());
 	if (T01_flag) printf("TOP1  %8.5lf\n", calc_top1());
@@ -1814,7 +1814,7 @@ int main (argc, argv)
 	if (PRB_flag) printf("PRB   %8.5lf\n", 1.0 - calc_break_even_point());
 	if (APR_flag) printf("APR   %8.5lf\n", 1.0 - calc_apr(0));
 	if (ROC_flag) printf("ROC   %8.5lf\n", 1.0 - calc_roca(0));
-	if (APC_flag) printf("AuPRC   %8.5lf\n", calc_area_under_pr(0));
+	if (APC_flag) printf("AuPRC %8.5lf\n", calc_area_under_pr(0));
 	if (R50_flag) printf("R50   %8.5lf\n", 1.0 - calc_rocn(50));
 	if (RKL_flag) printf ("RKL    %8.5lf\n", ((calc_rank_last()-1) / (((double) (no_item-1)) + eps)));
 	if (T01_flag) printf ("TOP1  %8.5lf\n", 1.0 - calc_top1());
